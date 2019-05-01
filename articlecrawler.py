@@ -126,7 +126,9 @@ class ArticleCrawler(object):
                 text_company = text_company + str(tag_company[0].get('content'))
                 if not text_company:  # 공백일 경우 기사 제외 처리
                     continue
-
+                    
+                    
+                # 기사 이미지 가져옴
                 tag_image = document_content.find_all('span', {'class': 'end_photo_org'})
                 image_url = ''  # 이미지 초기화
                 image_url = image_url + str(tag_image[0].find('img')['src'])
