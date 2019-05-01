@@ -71,10 +71,12 @@ class ArticleCrawler(object):
 
         # 안되면 울거다
         file_name = 'Article_'+str(self.category[category_name])
-        conn = pymongo.MongoClient('mongodb://%s:%s@%s:%s/'%(MONGODB_USERID,MONGODB_PASSWORD,MONGODB_HOST,MONGODB_PORT))
+
+        conn = pymongo.MongoClient(
+            'mongodb://%s:%s@%s:%s/' % (MONGODB_USERID, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_PORT))
+        print(conn)
         db = conn.get_database(MONGODB_DATABASE)
         collection = db[file_name]
-
         # 기사 URL 형식
         url = "http://news.naver.com/main/list.nhn?mode=LSD&mid=sec&sid1=" + str(
             self.category.get(category_name)) + "&date="
@@ -106,44 +108,48 @@ class ArticleCrawler(object):
                 request_content = requests.get(content_url)
                 document_content = BeautifulSoup(request_content.content, 'html.parser')
 
+                try:
 
-                # 기사 제목 가져옴
-                tag_headline = document_content.find_all('h3', {'id': 'articleTitle'}, {'class': 'tts_head'})
-                text_headline = ''  # 뉴스 기사 제목 초기화
-                text_headline = text_headline + self.parser.clear_headline(str(tag_headline[0].find_all(text=True)))
-                if not text_headline:  # 공백일 경우 기사 제외 처리
-                    continue
-                    # 기사 본문 가져옴
-                tag_content = document_content.find_all('div', {'id': 'articleBodyContents'})
-                text_sentence = ''  # 뉴스 기사 본문 초기화
-                text_sentence = text_sentence + self.parser.clear_content(str(tag_content[0].find_all(text=True)))
-                if not text_sentence:  # 공백일 경우 기사 제외 처리
-                    continue
+                    # 기사 제목 가져옴
+                    tag_headline = document_content.find_all('h3', {'id': 'articleTitle'}, {'class': 'tts_head'})
+                    text_headline = ''  # 뉴스 기사 제목 초기화
+                    text_headline = text_headline + self.parser.clear_headline(str(tag_headline[0].find_all(text=True)))
+                    if not text_headline:  # 공백일 경우 기사 제외 처리
+                        continue
+                        # 기사 본문 가져옴
+                    tag_content = document_content.find_all('div', {'id': 'articleBodyContents'})
+                    text_sentence = ''  # 뉴스 기사 본문 초기화
+                    text_sentence = text_sentence + self.parser.clear_content(str(tag_content[0].find_all(text=True)))
+                    if not text_sentence:  # 공백일 경우 기사 제외 처리
+                        continue
 
-                # 기사 언론사 가져옴
-                tag_company = document_content.find_all('meta', {'property': 'me2:category1'})
-                text_company = ''  # 언론사 초기화
-                text_company = text_company + str(tag_company[0].get('content'))
-                if not text_company:  # 공백일 경우 기사 제외 처리
-                    continue
-                    
-                    
-                # 기사 이미지 가져옴
-                tag_image = document_content.find_all('span', {'class': 'end_photo_org'})
-                image_url = ''  # 이미지 초기화
-                image_url = image_url + str(tag_image[0].find('img')['src'])
-                image_path = "images/"+file_name+"_"+str(row)+"_"+str(news_date)+'.png'
-                urllib.request.urlretrieve(image_url, image_path)
-                row = row + 1
-                if not image_url:  # 공백일 경우 기사 제외 처리
-                    continue
+                    # 기사 언론사 가져옴
+                    tag_company = document_content.find_all('meta', {'property': 'me2:category1'})
+                    text_company = ''  # 언론사 초기화
+                    text_company = text_company + str(tag_company[0].get('content'))
+                    if not text_company:  # 공백일 경우 기사 제외 처리
+                        continue
 
-                collection.insert_one({"data": {
-                    "headline": text_headline,
-                    "content": text_sentence,
-                    "company": text_company,
-                    "image": image_path
-                }})
+
+                    # 기사 이미지 가져옴
+                    tag_image = document_content.find_all('span', {'class': 'end_photo_org'})
+                    image_url = ''  # 이미지 초기화
+                    image_url = image_url + str(tag_image[0].find('img')['src'])
+                    image_path = "images/"+file_name+"_"+str(row)+"_"+str(news_date)+'.png'
+                    urllib.request.urlretrieve(image_url, image_path)
+                    row = row + 1
+                    if not image_url:  # 공백일 경우 기사 제외 처리
+                        continue
+                    collection.insert_one({"data": {
+                        "headline": text_headline,
+                        "content": text_sentence,
+                        "company": text_company,
+                        "image": image_path
+                    }})
+                except Exception as ex:
+                    pass
+
+
 
     def start(self):
         # MultiThread 크롤링 시작
