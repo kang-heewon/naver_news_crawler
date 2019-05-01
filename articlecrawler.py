@@ -152,7 +152,7 @@ class ArticleCrawler(object):
 
 
     def start(self):
-        # MultiThread 크롤링 시작
+        # MultiProcess 크롤링 시작
         for category_name in self.selected_category:
             proc = Process(target=self.crawling, args=(category_name,))
             proc.start()
