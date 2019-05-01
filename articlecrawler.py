@@ -9,7 +9,7 @@ import re
 import requests
 import pymongo
 import urllib.request
-import settings
+from settings import *
 
 class ArticleCrawler(object):
     def __init__(self):
@@ -71,8 +71,8 @@ class ArticleCrawler(object):
 
         # 안되면 울거다
         file_name = 'Article_'+str(self.category[category_name])
-        conn = pymongo.MongoClient('mongodb://%s:%s@%s:%s/'%(settings.MONGODB_USERID,settings.MONGODB_PASSWORD,settings.MONGODB_HOST,settings.MONGODB_PORT))
-        db = conn.get_database(settings.MONGODB_DATABASE)
+        conn = pymongo.MongoClient('mongodb://%s:%s@%s:%s/'%(MONGODB_USERID,MONGODB_PASSWORD,MONGODB_HOST,MONGODB_PORT))
+        db = conn.get_database(MONGODB_DATABASE)
         collection = db[file_name]
 
         # 기사 URL 형식
