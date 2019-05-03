@@ -8,3 +8,7 @@ pip install -r requirement.txt
 
 명령어 입력 후 자유롭게 사용하시면 됩니다.
 크롤링 가능한 기사 카테고리는 정치, 경제, 생활문화, IT과학, 사회입니다.
+
+## Contributers
+* kang-heewon [ https://github.com/kang-heewon ]
+* izen1231 [ https://github.com/izen1231 ]
