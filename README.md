@@ -35,7 +35,7 @@ python articlecrawler.py
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome !<br />Feel free to check [issues page](https://github.com/kang-heewon/node_telegram_chat/issues).
+Contributions, issues and feature requests are welcome !<br />Feel free to check [issues page](https://github.com/kang-heewon/naver_news_crawler/issues).
 
 ## Show your support
 
@@ -44,7 +44,7 @@ Give a ⭐️ if this project helped you !
 ## 📝 License
 
 Copyright © 2019 [kang-heewon](https://github.com/kang-heewon).<br />
-This project is [ISC](https://github.com/kang-heewon/node_telegram_chat/blob/master/LICENSE) licensed.
+This project is [ISC](https://github.com/kang-heewon/naver_news_crawler/blob/master/LICENSE) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
