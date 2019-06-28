@@ -33,6 +33,10 @@ python articlecrawler.py
 
 * Github: [@kang-heewon](https://github.com/kang-heewon)
 
+👤 **Song-Juhyun**
+
+* Github: [@izen1231](https://github.com/izen1231)
+
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome !<br />Feel free to check [issues page](https://github.com/kang-heewon/naver_news_crawler/issues).
