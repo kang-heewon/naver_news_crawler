@@ -7,7 +7,7 @@ et-xmlfile==1.0.1
 idna==2.8
 jdcal==1.4
 openpyxl==2.6.2
-Pillow==6.0.0
+Pillow==6.2.0
 pymongo==3.8.0
 python-dotenv==0.10.1
 requests==2.21.0
